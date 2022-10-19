@@ -32,6 +32,7 @@ resource "aws_eks_node_group" "node_group" {
   for_each        = { for ng in var.node_groups : ng.name_suffix => ng }
   node_group_name = "${local.cluster_name}-${each.value.name_suffix}"
   cluster_name    = local.cluster_name
+  ami_type        = "AL2_ARM_64"
   version         = var.k8s_version
   subnet_ids      = local.private_subnet_ids
   node_role_arn   = aws_iam_role.node.arn

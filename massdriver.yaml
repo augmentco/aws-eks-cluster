@@ -2,7 +2,7 @@ schema: draft-07
 name: aws-eks-cluster
 description: An open source container orchestration platform that automates many of the manual processes involved in deploying, managing, and scaling containerized applications.
 source_url: github.com/massdriver-cloud/aws-eks-cluster
-access: public
+access: private
 type: bundle
 
 steps:

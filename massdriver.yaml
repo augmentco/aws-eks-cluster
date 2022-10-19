@@ -169,8 +169,20 @@ params:
                 const: t4g.2xlarge
               - title: T4G Extra Large (4c/16g)
                 const: t4g.xlarge
-              - title: T4G Nano (2/.5g)
+              - title: T4G Nano (2c/.5g)
                 const: t4g.nano
+              - title: A1 Metal (16c/32g)
+                const: a1.metal
+              - title: A1 Double Extra Large (8c/16g)
+                const: a1.2xlarge
+              - title: A1 Extra Large (4c/8g)
+                const: a1.xlarge
+              - title: A1 Medium (1c/2g)
+                const: a1.medium
+              - title: A1 Large (2c/4g)
+                const: a1.large
+              - title: A1 Quadruple Extra Large (16c/32g)
+                const: a1.4xlarge
     core_services:
       type: object
       title: Core Services

@@ -19,14 +19,14 @@ params:
       k8s_version: "1.21"
       node_groups:
         - name_suffix: shared
-          instance_type: t3.medium
+          instance_type: t4g.medium
           min_size: 1
           max_size: 10
     - __name: Production
       k8s_version: "1.21"
       node_groups:
         - name_suffix: shared
-          instance_type: c5.2xlarge
+          instance_type: c6g.2xlarge
           min_size: 1
           max_size: 10
   required:
@@ -139,54 +139,38 @@ params:
             description: Instance type to use in the node group
             type: string
             oneOf:
-              - title: C5 High-CPU Large (2 vCPUs, 4.0 GiB)
-                const: c5.large
-              - title: C5 High-CPU Extra Large (4 vCPUs, 8.0 GiB)
-                const: c5.xlarge
-              - title: C5 High-CPU Double Extra Large (8 vCPUs, 16.0 GiB)
-                const: c5.2xlarge
-              - title: C5 High-CPU Quadruple Extra Large (16 vCPUs, 32.0 GiB)
-                const: c5.4xlarge
-              - title: C5 High-CPU 9xlarge (36 vCPUs, 72.0 GiB)
-                const: c5.9xlarge
-              - title: C5 High-CPU 12xlarge (48 vCPUs, 96.0 GiB)
-                const: c5.12xlarge
-              - title: C5 High-CPU 18xlarge (72 vCPUs, 144.0 GiB)
-                const: c5.18xlarge
-              - title: C5 High-CPU 24xlarge (96 vCPUs, 192.0 GiB)
-                const: c5.24xlarge
-              - title: M5 General Purpose Large (2 vCPUs, 8.0 GiB)
-                const: m5.large
-              - title: M5 General Purpose Extra Large (4 vCPUs, 16.0 GiB)
-                const: m5.xlarge
-              - title: M5 General Purpose Double Extra Large (8 vCPUs, 32.0 GiB)
-                const: m5.2xlarge
-              - title: M5 General Purpose Quadruple Extra Large (16 vCPUs, 64.0 GiB)
-                const: m5.4xlarge
-              - title: M5 General Purpose Eight Extra Large (32 vCPUs, 128.0 GiB)
-                const: m5.8xlarge
-              - title: M5 General Purpose 12xlarge (48 vCPUs, 192.0 GiB)
-                const: m5.12xlarge
-              - title: M5 General Purpose 16xlarge (64 vCPUs, 256.0 GiB)
-                const: m5.16xlarge
-              - title: M5 General Purpose 24xlarge (96 vCPUs, 384.0 GiB)
-                const: m5.24xlarge
-              - title: T3 Small (2 vCPUs for a 4h 48m burst, 2.0 GiB)
-                const: t3.small
-              - title: T3 Medium (2 vCPUs for a 4h 48m burst, 4.0 GiB)
-                const: t3.medium
-              - title: T3 Large (2 vCPUs for a 7h 12m burst, 8.0 GiB)
-                const: t3.large
-              - title: T3 Extra Large (4 vCPUs for a 9h 36m burst, 16.0 GiB)
-                const: t3.xlarge
-              - title: T3 Double Extra Large (8 vCPUs for a 9h 36m burst, 32.0 GiB)
-                const: t3.2xlarge
-              - title: P2 General Purpose GPU Extra Large (4 vCPUs, 61.0 GiB)
-                const: p2.xlarge
-              - title: P2 General Purpose GPU Eight Extra Large (32 vCPUs, 488.0 GiB)
-                const: p2.8xlarge
-              - title: P2 General Purpose GPU 16xlarge (64 vCPUs, 732.0 GiB)
-                const: p2.16xlarge
+              - title: C6G Double Extra Large (8c/16g)
+                const: c6g.2xlarge
+              - title: C6G Quadruple Extra Large (16c/32g)
+                const: c6g.4xlarge
+              - title: C6G 16xlarge (64c/128g)
+                const: c6g.16xlarge
+              - title: C6G Extra Large (4c/8g)
+                const: c6g.xlarge
+              - title: C6G 12xlarge (48c/96g)
+                const: c6g.12xlarge
+              - title: C6G Metal (64c/128g)
+                const: c6g.metal
+              - title: C6G Medium (1c/2g)
+                const: c6g.medium
+              - title: C6G Large (2c/4g)
+                const: c6g.large
+              - title: C6G Eight Extra Large (32c/64g)
+                const: c6g.8xlarge
+              - title: T4G Micro (2c/1g)
+                const: t4g.micro
+              - title: T4G Large (2c/8g)
+                const: t4g.large
+              - title: T4G Medium (2c/4g)
+                const: t4g.medium
+              - title: T4G Small (2c/2g)
+                const: t4g.small
+              - title: T4G Double Extra Large (8c/32g)
+                const: t4g.2xlarge
+              - title: T4G Extra Large (4c/16g)
+                const: t4g.xlarge
+              - title: T4G Nano (2/.5g)
+                const: t4g.nano
     core_services:
       type: object
       title: Core Services

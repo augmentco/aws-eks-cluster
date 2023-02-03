@@ -66,9 +66,9 @@ resource "aws_eks_node_group" "node_group_arm64" {
   instance_types  = ["t4g.medium", "t4g.large"]
 
   taint {
-    key = arm64
-    value = true
-    effect = NO_EXECUTE
+    key = "arm64"
+    value = "true"
+    effect = "NO_EXECUTE"
   }
 
   scaling_config {

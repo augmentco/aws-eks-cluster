@@ -9,7 +9,7 @@ locals {
     }
     // We need to set the "user" here, but the token won't be generated til the next step
     user = {
-      token = lookup(data.kubernetes_secret.massdriver-cloud-provisioner_service-account_secret.data, "token")
+      token = lookup(kubernetes_secret_v1.massdriver-cloud-provisioner_token.data, "token")
     }
   }
   data_infrastructure = {
@@ -23,9 +23,7 @@ locals {
     platform_version = data.aws_eks_cluster.cluster.platform_version
   }
   specs_aws = {
-    service  = "eks"
-    resource = "cluster"
-    region   = var.vpc.specs.aws.region
+    region = var.vpc.specs.aws.region
   }
 
   kubernetes_cluster_artifact = {
@@ -35,6 +33,7 @@ locals {
     }
     specs = {
       kubernetes = local.specs_kubernetes
+      aws        = local.specs_aws
     }
   }
 }

@@ -77,6 +77,15 @@ resource "aws_eks_node_group" "node_group_arm64" {
     min_size     = 1
   }
 
+  dynamic "taint" {
+    for_each = each.value.advanced_configuration_enabled ? [each.value.advanced_configuration.taint] : []
+    content {
+      key    = taint.value.taint_key
+      value  = taint.value.taint_value
+      effect = taint.value.effect
+    }
+  }
+
   lifecycle {
     create_before_destroy = true
     // desired_size issue: https://github.com/aws/containers-roadmap/issues/1637
@@ -84,6 +93,10 @@ resource "aws_eks_node_group" "node_group_arm64" {
       scaling_config.0.desired_size,
     ]
   }
+
+  # adding tags will cause a provisioning error!
+  # don't add tags here
+  # tags = var.md_metadata.default_tags
 
   depends_on = [
     aws_eks_cluster.cluster

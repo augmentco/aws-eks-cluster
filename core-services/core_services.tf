@@ -19,6 +19,12 @@ data "aws_route53_zone" "hosted_zones" {
   zone_id  = each.key
 }
 
+resource "kubernetes_namespace_v1" "md-core-services" {
+  metadata {
+    labels = var.md_metadata.default_tags
+    name   = "md-core-services"
+  }
+}
 
 module "cluster-autoscaler" {
   source             = "github.com/massdriver-cloud/terraform-modules//k8s-cluster-autoscaler-aws?ref=54da4ef"
@@ -34,7 +40,7 @@ module "ingress_nginx" {
   kubernetes_cluster = local.kubernetes_cluster_artifact
   md_metadata        = var.md_metadata
   release            = "ingress-nginx"
-  namespace          = local.core_services_namespace
+  namespace          = kubernetes_namespace_v1.md-core-services.metadata.0.name
   helm_additional_values = {
     controller = {
       service = {
@@ -55,7 +61,7 @@ module "external_dns" {
   kubernetes_cluster   = local.kubernetes_cluster_artifact
   md_metadata          = var.md_metadata
   release              = "external-dns"
-  namespace            = local.core_services_namespace
+  namespace            = kubernetes_namespace_v1.md-core-services.metadata.0.name
   route53_hosted_zones = local.route53_zone_to_domain_map
 }
 
@@ -65,7 +71,7 @@ module "cert_manager" {
   kubernetes_cluster   = local.kubernetes_cluster_artifact
   md_metadata          = var.md_metadata
   release              = "cert-manager"
-  namespace            = local.core_services_namespace
+  namespace            = kubernetes_namespace_v1.md-core-services.metadata.0.name
   route53_hosted_zones = local.route53_zone_to_domain_map
 }
 
@@ -76,6 +82,6 @@ module "efs_csi" {
   eks_cluster_arn              = data.aws_eks_cluster.cluster.arn
   eks_oidc_issuer_url          = local.oidc_issuer_url
   release                      = "efs-csi"
-  namespace                    = local.core_services_namespace
+  namespace                    = kubernetes_namespace_v1.md-core-services.metadata.0.name
   storage_class_to_efs_arn_map = local.storage_class_to_efs_arn_map
 }
